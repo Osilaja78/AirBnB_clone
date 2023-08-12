@@ -18,6 +18,8 @@ class TestBaseModel(unittest.TestCase):
     def test_id(self):
         m1 = BaseModel()
         m2 = BaseModel()
+        self.assertTrue(hasattr(m1, "id"))
+        self.assertTrue(hasattr(m2, "id"))
         self.assertIsInstance(m1.id, str)
         self.assertIsInstance(m2.id, str)
         self.assertNotEqual(m1.id, m2.id)
@@ -37,6 +39,24 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(isinstance(my_dict['created_at'], str))
         self.assertTrue(isinstance(my_dict['updated_at'], str))
 
+    def test_kwargs(self):
+        my_model = BaseModel()
 
-if __name__ == "__man__":
+        my_model.name = "My First Model"
+        my_model.number = 78
+
+        self.assertTrue(hasattr(my_model, "name"))
+        self.assertTrue(hasattr(my_model, "number"))
+
+        model_json = my_model.to_dict()
+        my_new_model = BaseModel(**model_json)
+
+        self.assertIsInstance(my_model, BaseModel)
+        self.assertIsInstance(my_new_model, BaseModel)
+        self.assertEqual(my_model.id, my_new_model.id)
+        self.assertEqual(my_model.name, my_model.name)
+        self.assertFalse(my_model is my_new_model)
+
+
+if __name__ == "__main__":
     unittest.main()
