@@ -51,5 +51,5 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(key, new_storage.all())
 
 
-if __name__  == "__main__":
+if __name__ == "__main__":
     unittest.man()
