@@ -204,5 +204,9 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
 
+def parse(arg):
+    return arg.split()
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
