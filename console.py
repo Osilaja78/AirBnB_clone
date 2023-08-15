@@ -15,26 +15,8 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-def parse(arg):
-    curly_braces = re.search(r"\{(.*?)\}", arg)
-    brackets = re.search(r"\[(.*?)\]", arg)
-    if curly_braces is None:
-        if brackets is None:
-            return [i.strip(",") for i in split(arg)]
-        else:
-            lexer = split(arg[:brackets.span()[0]])
-            retl = [i.strip(",") for i in lexer]
-            retl.append(brackets.group())
-            return retl
-    else:
-        lexer = split(arg[:curly_braces.span()[0]])
-        retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
-        return retl
-
-
 class HBNBCommand(cmd.Cmd):
-     """This class defines the HBNB command interpreter."""
+    """This class defines the HBNB command interpreter."""
 
     prompt = "(hbnb) "
     __classes = {
@@ -46,6 +28,23 @@ class HBNBCommand(cmd.Cmd):
         "Amenity",
         "Review"
     }
+
+    def parse(arg):
+        curly_braces = re.search(r"\{(.*?)\}", arg)
+        brackets = re.search(r"\[(.*?)\]", arg)
+        if curly_braces is None:
+            if brackets is None:
+                return [i.strip(",") for i in split(arg)]
+            else:
+                lexer = split(arg[:brackets.span()[0]])
+                retl = [i.strip(",") for i in lexer]
+                retl.append(brackets.group())
+                return retl
+        else:
+            lexer = split(arg[:curly_braces.span()[0]])
+            retl = [i.strip(",") for i in lexer]
+            retl.append(curly_braces.group())
+            return retl
 
     def emptyline(self):
         """Do nothing upon receiving an empty line."""
@@ -73,12 +72,12 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-         """This class defines the HBNB command interpreter."""
+        """This class defines the HBNB command interpreter."""
 
         return True
 
     def do_EOF(self, arg):
-        """EOF command to exit the porgram"""
+        """EOF command to exit the program."""
         print("")
         return True
 
