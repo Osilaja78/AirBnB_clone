@@ -8,5 +8,10 @@ footer {
     justify-content: center;
     position: fixed;
     bottom: 0;
-    padding-bottom: 60px;
+}
+
+@media screen and (max-width: 750px) {
+    footer {
+        height: 50px;
+    }
 }
